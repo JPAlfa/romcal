@@ -79,7 +79,7 @@ module.exports = {
         }
       },
       {
-        "key": "blessedsAndreDeSoveralAndAmbrosioFranciscoFerroPriestsAndMartyrs",
+        "key": "saintsAndreDeSoveralAndAmbrosioFranciscoFerroPriestsAndMartyrs",
         "type": Types[5],
         "moment": moment.utc({ year: arguments[0], month: 9, day: 3 }),
         "data": {
