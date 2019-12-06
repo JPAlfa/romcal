@@ -42,7 +42,7 @@ const _sanitizeConfig = config => {
     config.country = '';
   }
   config.saintsCyrilMonkAndMethodiusBishopOnFeb14 = config.saintsCyrilMonkAndMethodiusBishopOnFeb14;
-  config.locale = config.locale || 'en-Us';
+  config.locale = config.locale || 'en';
   config.type = config.type || 'calendar';
   config.query = _.isPlainObject( config.query ) ? config.query : null;
   return config;
@@ -102,7 +102,6 @@ const _getCalendar = options => {
     r[ v.key ] = v;
     return r;
   }, {});
-
 
   // If the national calendar has the same celebration defined
   // as in the general calendar, it replaces the one
@@ -299,7 +298,7 @@ const _applyDates = ( options, dates ) => {
         }
 
         //------------------------------------------------------------------
-        // MEMORIAL or OPT_MEMORIAL that fall on a WEEKDAY
+        // MEMORIAL or OPT_MEMORIAL that fall on a FERIA
         // in the SEASON OF LENT are reduced to a COMMEMORATION
         //------------------------------------------------------------------
         else if (
@@ -312,20 +311,20 @@ const _applyDates = ( options, dates ) => {
         }
 
         //------------------------------------------------------------------
-        // MEMORIAL or OPT_MEMORIAL that fall on a WEEKDAY
-        // outside LENT or the Easter Octave will replace the general WEEKDAY
+        // MEMORIAL or OPT_MEMORIAL that fall on a FERIA
+        // outside LENT or the Easter Octave will replace the general FERIA
         //------------------------------------------------------------------
         else if (
-          _.eq( date.type, _.last( Types ) ) // If the current date is of type weekday
-          && !_.eq( date.data.season.key, LiturgicalSeasons.LENT ) // And this weekday is not in Lent
+          _.eq( date.type, _.last( Types ) ) // If the current date is of type feria
+          && !_.eq( date.data.season.key, LiturgicalSeasons.LENT ) // And this feria is not in Lent
           && ( _.eq( candidate.type, Types[5] ) || _.eq( candidate.type, Types[6] ) ) // And the candidate is either a memorial or optional memorial
         ) {
-          replace = true; // Then the candidate is fit to replace the weekday
+          replace = true; // Then the candidate is fit to replace the feria
         }
 
         //------------------------------------------------------------------
-        // A non prioritized FEAST can only replace WEEKDAY \
-        // - weekday must not be in the octave of EASTER
+        // A non prioritized FEAST can only replace FERIA \
+        // - feria must not be in the octave of EASTER
         //------------------------------------------------------------------
         else if (
           _.eq( candidate.type, Types[4] )
@@ -350,9 +349,9 @@ const _applyDates = ( options, dates ) => {
         }
 
         //------------------------------------------------------------------
-        // A prioritized FEAST can replace a SUNDAY or WEEKDAY
+        // A prioritized FEAST can replace a SUNDAY or FERIA
         // When a Feast of the Lord falls on a SUNDAY it replaces the SUNDAY in Ordinary Time.
-        // - weekday must not be in the octave of EASTER
+        // - feria must not be in the octave of EASTER
         //------------------------------------------------------------------
         else if (
           _.eq( candidate.type, Types[4] )
@@ -374,7 +373,7 @@ const _applyDates = ( options, dates ) => {
         }
 
         //------------------------------------------------------------------
-        // A weekday can only replace a weekday
+        // A feria can only replace a feria
         // Sundays in Ordinary Time and Chrismastide take precedence over all other celebrations
         // except for SOLEMNITIES and certain FEASTS
         //------------------------------------------------------------------
@@ -457,7 +456,7 @@ const _liturgicalCycleMetadata = (year, dates) => {
 // c: (an object literal with the following options)
 // [-] year: The year to calculate the liturgical date ranges
 // [-] country: Get national calendar dates for the given country (defaults to 'general')
-// [-] locale: The language for the calendar names (defaults to 'en-Us')
+// [-] locale: The language for the calendar names (defaults to 'en')
 // [-] christmastideEnds: t|o|e (The mode to calculate the end of Christmastide. Defaukts to 'o')
 // [-] epiphanyOnJan6: true|false|undefined (If true, Epiphany will be fixed to Jan 6) (defaults to false)
 // [-] christmastideIncludesTheSeasonOfEpiphany: true|false|undefined (If false, the season of Epiphany will not be merged into Christmastide )
@@ -495,7 +494,7 @@ const _calendarYear = c => {
 // c: (an object literal with the following options)
 // [-] year: The year to calculate the liturgical date ranges
 // [-] country: Get national calendar dates for the given country (defaults to 'general')
-// [-] locale: The language for the calendar names (defaults to 'en-Us')
+// [-] locale: The language for the calendar names (defaults to 'en')
 // [-] christmastideEnds: t|o|e (The mode to calculate the end of Christmastide. Defaukts to 'o')
 // [-] epiphanyOnJan6: true|false|undefined (If true, Epiphany will be fixed to Jan 6) (defaults to false)
 // [-] christmastideIncludesTheSeasonOfEpiphany: true|false|undefined (If false, the season of Epiphany will not be merged into Christmastide )
