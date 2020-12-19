@@ -74,7 +74,7 @@ let dates = year => {
       }
     },
     {
-      "key": "blessedsAndreDeSoveralAndAmbrosioFranciscoFerroPriestsAndMartyrs",
+      "key": "saintsAndreDeSoveralAndAmbrosioFranciscoFerroPriestsAndMartyrs",
       "type": Types.MEMORIAL,
       "moment": moment.utc({ year: year, month: 9, day: 3 }),
       "data": {
